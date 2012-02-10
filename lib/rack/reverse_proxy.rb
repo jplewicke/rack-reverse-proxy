@@ -22,9 +22,13 @@ module Rack
         if key =~ /HTTP_(.*)/
           headers[$1] = value
         end
+        
+        puts "key: #{key} value: #{value}"
       }
       headers['HOST'] = uri.host if all_opts[:preserve_host]
-      headers['X-WPE-Rewrite'] = all_opts[:wpe_rewrite]
+      headers['X-WPE-Rewrite'] = all_opts[:wpe_rewrite] if all_opts[:wpe_rewrite]
+      
+      puts headers
  
       session = Net::HTTP.new(uri.host, uri.port)
       session.read_timeout=all_opts[:timeout] if all_opts[:timeout]
