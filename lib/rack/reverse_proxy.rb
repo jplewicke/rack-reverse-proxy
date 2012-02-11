@@ -127,8 +127,9 @@ module Rack
             #   response_headers['set-cookie'] = cookies.values.join(';')
             # end
       cookies = response_headers['set-cookie']
+      cookies.collect! {|h| h.strip}
       response_headers.delete('set-cookie')
-      response_headers['Cookie'] = cookies
+      response_headers['Set-Cookie'] = cookies
       
       # handled by Rack
       response_headers.delete('status')
