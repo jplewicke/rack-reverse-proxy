@@ -112,6 +112,19 @@ module Rack
       puts "Response Headers:__init_______"
       puts response_headers
       puts "The cookie is what???"
+      if response_headers["set-cookie"]
+        cookies ||= {}
+        #handle single or multiple Set-Cookie Headers as returned by Rack::Utils::HeaderHash in HTTPI
+        set_cookies = [headers["Set-Cookie"]].flatten 
+        set_cookies.each do |set_cookie|
+          # use the cookie name as the key to the hash to allow for cookie updates and seperation
+          # set the value to name=value (for easy joining), stopping when we hit the Cookie options
+          cookies[set_cookie.split('=').first] = set_cookie.split(';').first
+        end
+
+        response_headers['set-cookie'] = cookies.values.join(';')
+      end
+      
       puts response_headers['set-cookie']
       # handled by Rack
       response_headers.delete('status')
