@@ -29,6 +29,8 @@ module Rack
       headers['X-WPE-Rewrite'] = all_opts[:wpe_rewrite] if all_opts[:wpe_rewrite]
       
       puts headers
+      
+      puts "______uri.request_uri: #{uri.request_uri} ____"
  
       session = Net::HTTP.new(uri.host, uri.port)
       session.read_timeout=all_opts[:timeout] if all_opts[:timeout]
