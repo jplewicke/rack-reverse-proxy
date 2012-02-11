@@ -30,10 +30,16 @@ module Rack
       
       puts headers
       
-      puts "______uri.request_uri: #{uri.request_uri} ____"
+      puts "______uri.request_uri: #{uri.request_uri} ____.read"
       puts rackreq.body.read
-      puts "__________"
+      puts "__________.rewind:"
       puts rackreq.body.rewind
+      puts "________.body:"
+      puts rackreq.body
+      puts "________.GET:"
+      puts rackreq.GET
+      puts "________.POST:"
+      puts rackreq.POST
  
       session = Net::HTTP.new(uri.host, uri.port)
       session.read_timeout=all_opts[:timeout] if all_opts[:timeout]
