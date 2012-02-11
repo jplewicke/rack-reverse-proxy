@@ -112,6 +112,7 @@ module Rack
       puts "Response Headers:__init_______"
       puts response_headers
       puts "The cookie is what???"
+      puts response_headers['set-cookie']
       if response_headers["set-cookie"]
         cookies ||= {}
         #handle single or multiple Set-Cookie Headers as returned by Rack::Utils::HeaderHash in HTTPI
@@ -125,7 +126,6 @@ module Rack
         response_headers['set-cookie'] = cookies.values.join(';')
       end
       
-      puts response_headers['set-cookie']
       # handled by Rack
       response_headers.delete('status')
       # TODO: figure out how to handle chunked responses
