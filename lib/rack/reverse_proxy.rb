@@ -40,6 +40,8 @@ module Rack
       puts rackreq.GET
       puts "________.POST:"
       puts rackreq.POST
+      puts "________.params:"
+      puts rackreq.params
  
       session = Net::HTTP.new(uri.host, uri.port)
       session.read_timeout=all_opts[:timeout] if all_opts[:timeout]
