@@ -111,6 +111,8 @@ module Rack
       
       puts "Response Headers:__init_______"
       puts response_headers
+      puts "The cookie is what???"
+      puts response_headers['set-cookie']
       # handled by Rack
       response_headers.delete('status')
       # TODO: figure out how to handle chunked responses
