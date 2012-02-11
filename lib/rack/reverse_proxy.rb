@@ -22,26 +22,9 @@ module Rack
         if key =~ /HTTP_(.*)/
           headers[$1] = value
         end
-        
-        puts "key: #{key} value: #{value}"
       }
       headers['HOST'] = uri.host if all_opts[:preserve_host]
       headers['X_WPE_REWRITE'] = all_opts[:wpe_rewrite] if all_opts[:wpe_rewrite]
-      
-      puts headers
-      
-      puts "______uri.request_uri: #{uri.request_uri} ____.read"
-      puts rackreq.body.read
-      puts "__________.rewind:"
-      puts rackreq.body.rewind
-      puts "________.body:"
-      puts rackreq.body
-      puts "________.GET:"
-      puts rackreq.GET
-      puts "________.POST:"
-      puts rackreq.POST
-      puts "________.params:"
-      puts rackreq.params
  
       session = Net::HTTP.new(uri.host, uri.port)
       session.read_timeout=all_opts[:timeout] if all_opts[:timeout]
@@ -106,14 +89,9 @@ module Rack
 
     def create_response_headers http_response
       
-      
       response_headers = Rack::Utils::HeaderHash.new(http_response.to_hash)
       
-      puts "Response Headers:__init_______"
-      puts response_headers
-      puts "The cookie is what???"
-      puts response_headers['set-cookie']
-      
+      #Strip whitespace from around individual cookie values.
       if response_headers['set-cookie'] && response_headers['set-cookie'].respond_to?(:collect!)
         response_headers['set-cookie'].collect! { |h| h.strip }
       end
@@ -124,8 +102,6 @@ module Rack
       response_headers.delete('transfer-encoding')
       # TODO: Verify Content Length, and required Rack headers
       
-      puts "Response Headers:__final_______"
-      puts response_headers
       response_headers
     end
 
