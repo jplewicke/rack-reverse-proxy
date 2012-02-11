@@ -105,12 +105,20 @@ module Rack
     end
 
     def create_response_headers http_response
+      
+      
       response_headers = Rack::Utils::HeaderHash.new(http_response.to_hash)
+      
+      puts "Response Headers:__init_______"
+      puts response_headers
       # handled by Rack
       response_headers.delete('status')
       # TODO: figure out how to handle chunked responses
       response_headers.delete('transfer-encoding')
       # TODO: Verify Content Length, and required Rack headers
+      
+      puts "Response Headers:__final_______"
+      puts response_headers
       response_headers
     end
 
