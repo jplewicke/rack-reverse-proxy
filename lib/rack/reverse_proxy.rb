@@ -26,7 +26,7 @@ module Rack
         puts "key: #{key} value: #{value}"
       }
       headers['HOST'] = uri.host if all_opts[:preserve_host]
-      headers['X-WPE-Rewrite'] = all_opts[:wpe_rewrite] if all_opts[:wpe_rewrite]
+      headers['X_WPE_REWRITE'] = all_opts[:wpe_rewrite] if all_opts[:wpe_rewrite]
       
       puts headers
       
