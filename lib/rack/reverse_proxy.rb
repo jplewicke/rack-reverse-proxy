@@ -24,6 +24,13 @@ module Rack
         end
       }
       headers['HOST'] = uri.host if all_opts[:preserve_host]
+      
+      if all_opts[:addl_headers]
+        all_opts[:addl_headers].each {|key,value|
+          headers[key] = value
+        }
+      end
+        
       headers['X_WPE_REWRITE'] = all_opts[:wpe_rewrite] if all_opts[:wpe_rewrite]
  
       session = Net::HTTP.new(uri.host, uri.port)
