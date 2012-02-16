@@ -99,8 +99,12 @@ module Rack
       response_headers = Rack::Utils::HeaderHash.new(http_response.to_hash)
       
       #Strip whitespace from around individual cookie values.
-      if response_headers['set-cookie'] && response_headers['set-cookie'].respond_to?(:collect!)
-        response_headers['set-cookie'].collect! { |h| h.strip }
+      cookies = response_headers['set-cookie']
+
+      if cookies.respond_to?(:collect!)
+        cookies.collect! {|h| h.strip}
+        response_headers.delete('set-cookie')
+        response_headers['Set-Cookie'] = cookies
       end
       
       # handled by Rack
