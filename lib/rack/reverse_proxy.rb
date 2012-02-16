@@ -127,12 +127,12 @@ module Rack
             #   response_headers['set-cookie'] = cookies.values.join(';')
             # end
       cookies = response_headers['set-cookie']
-      puts "<<<<<<<<<<<<<"
-      puts cookies.respond_to?(:collect!)
-      puts "<<<<<<<<<<<<<"
-      cookies.collect! {|h| h.strip}
-      response_headers.delete('set-cookie')
-      response_headers['Set-Cookie'] = cookies
+      
+      if cookies.respond_to?(:collect!)
+        cookies.collect! {|h| h.strip}
+        response_headers.delete('set-cookie')
+        response_headers['Set-Cookie'] = cookies
+      end
       
       # handled by Rack
       response_headers.delete('status')
